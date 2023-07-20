@@ -19,7 +19,7 @@ from Routes.users import user_bp
 # Create the Flask app
     # app = Flask(__name__)
     # CORS(app)
-    # client = MongoClient('mongodb+srv://ashik:ashik@cluster0.t6n9xjt.mongodb.net/?retryWrites=true&w=majority')
+    # client = MongoClient(os.getenv('MONGO_URI'))
     # db = client['trip_heaven']
     # collection = db['user']
 def create_app():
