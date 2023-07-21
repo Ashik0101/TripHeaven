@@ -14,7 +14,8 @@ import os
 
 from Routes.users import auth_bp
 from Routes.users import user_bp
-
+from Routes.hosts import host_bp
+from Routes.property import property_bp
 
 # Create the Flask app
     # app = Flask(__name__)
@@ -43,7 +44,8 @@ def create_app():
     # Register the blueprints with the app
     app.register_blueprint(auth_bp)
     app.register_blueprint(user_bp)
-
+    app.register_blueprint(host_bp)
+    app.register_blueprint(property_bp)
     return app
     
 app = create_app()

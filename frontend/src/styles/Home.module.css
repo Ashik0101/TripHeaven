@@ -1,0 +1,21 @@
+.container {
+  width: 90%;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+.loding_data {
+  width: 70%;
+  margin: auto;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loding_data h1 {
+  font-size: 5rem;
+  color: #80aaff;
+}

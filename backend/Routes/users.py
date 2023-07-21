@@ -52,7 +52,7 @@ def register():
 
     # Remove the 'password' field from the user_data dictionary before returning it as JSON
     user_data.pop('password', None)
-    return jsonify({'msg':'User registered successfully','user_data':user_data})
+    return jsonify({'msg':'User registered successfully','user_data':user_data}),201
    
 
 # <><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><> #
