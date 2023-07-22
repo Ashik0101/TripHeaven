@@ -2,10 +2,12 @@ import style from "../styles/UserRegistrationComp.module.css";
 import React, { useState } from "react";
 import axios from "axios";
 import url from "./url";
+import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function UserRegistrationComp() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -200,6 +202,13 @@ function UserRegistrationComp() {
         <div className="form-group">
           <button type="submit" className="btn btn-primary">
             Sign up
+          </button>
+          <button
+            onClick={() => navigate("/login")}
+            style={{ marginLeft: ".4rem" }}
+            className="btn btn-primary"
+          >
+            Login
           </button>
         </div>
       </form>

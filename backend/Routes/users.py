@@ -88,7 +88,7 @@ def login():
         return jsonify({'msg': 'Login successful', 'token': token}), 200
     else:
         # Passwords don't match, return error response
-        return jsonify({'msg': 'Invalid password'}), 401
+        return jsonify({'msg': 'Invalid password'}), 400
    
 
 
@@ -98,8 +98,12 @@ def login():
 # User managment routes are here...
 
 # Get a user by it's id.
-@user_bp.route('/<user_id>', methods=['GET'])
-def get_user(user_id):
+
+@user_bp.route('/profile', methods=['GET'])
+@auth_middleware
+def get_user():
+    user_id = request.user_id  # Extract user ID from the request or JWT payload
+    print(user_id)
     # Access the database using current_app
     db = current_app.db
 
@@ -111,6 +115,10 @@ def get_user(user_id):
     # Convert the MongoDB ObjectId to a string
     existing_user['_id'] = str(existing_user['_id'])
 
+    existing_user['date_of_birth'] = datetime.datetime.strptime(existing_user['date_of_birth'], "%Y-%m-%d")
+
+    # Format the hosting_since date
+    existing_user['date_of_birth'] = datetime.datetime.strftime(existing_user['date_of_birth'], "%B %d, %Y")
     # Remove the 'password' field from the user data before returning it as JSON
     existing_user.pop('password', None)
 
