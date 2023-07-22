@@ -25,11 +25,13 @@ from Routes.property import property_bp
     # collection = db['user']
 def create_app():
     app = Flask(__name__)
-    CORS(app)
     app.config['MONGO_URI'] = os.getenv('MONGO_URI')
     app.mongo_client = MongoClient(app.config['MONGO_URI'])
     app.db = app.mongo_client['trip_heaven']
     collection = app.db['user']
+
+    # Add CORS middleware to allow cross-origin requests
+    CORS(app)
 
     # check if mongoDB connected
     try:

@@ -6,9 +6,12 @@ import url from "../components/url";
 
 import Header from "../components/Header";
 import axios from "axios";
+import Loader from "../components/Loader";
+import HeaderLoader from "../components/HeaderLoader";
+
 const Home = () => {
   const [data, setData] = useState(null);
-
+  const num = [1, 2, 3, 4, 5, 6, 7, 8];
   /********** fetching data here ************/
 
   useEffect(() => {
@@ -22,10 +25,12 @@ const Home = () => {
 
   return (
     <>
-      <Header />
+      <>{!data ? <HeaderLoader /> : <Header />}</>
       {data === null ? (
-        <div className={styles.loding_data}>
-          <h1>Loading Data....</h1>
+        <div className={styles.container}>
+          {num.map((el, index) => (
+            <Loader key={index} />
+          ))}
         </div>
       ) : (
         <>

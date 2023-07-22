@@ -126,6 +126,10 @@ def get_all_properties():
         property['_id'] = str(property['_id'])
 
     return jsonify({'msg': 'Success', 'properties': properties})
+@property_bp.after_request
+def add_cache_control(response):
+    response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
+    return response
 
 
 # Delete a property by it's id
