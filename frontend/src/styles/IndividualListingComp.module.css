@@ -1,0 +1,66 @@
+.container {
+  width: 80%;
+  margin: auto;
+}
+body {
+  background: linear-gradient(#e5fbff, #b3ccff) !important;
+}
+
+.image_container {
+  /* border: 5px solid red; */
+  display: grid;
+  grid-template-columns: 60% 40%;
+}
+
+.thumbnail_container {
+  padding: 0.5rem;
+}
+.thumbnail_container img {
+  width: 100%;
+  height: 20rem;
+}
+.other_images_container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  padding: 0.5rem;
+  /* border: 5px solid yellow; */
+  column-gap: 0.5rem;
+  row-gap: 0.5rem;
+}
+
+.other_images_container > div img {
+  height: 100%;
+}
+
+/*****************************************/
+/*****************************************/
+/*****************************************/
+.parent_details_container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  /* border: 2px solid red; */
+}
+.details_container {
+  text-align: left;
+  /* border: 3px solid blue; */
+  padding-left: 3rem;
+  background-color: aliceblue;
+  /* padding: 1rem; */
+  border-radius: 1rem;
+}
+ul {
+  padding-left: 2rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.calendar_container {
+  border-radius: 2rem;
+  /* border: 3px solid green; */
+}
+.customCalendar {
+  width: 500px;
+  height: 100%;
+  border-radius: 1.2rem;
+}
