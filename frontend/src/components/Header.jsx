@@ -18,7 +18,7 @@ function Header() {
         className="navbar navbar-expand-lg navbar-light"
       >
         <Link style={link_style} className="navbar-brand" to={"/"}>
-          HOME
+          <i style={{ fontSize: "20px" }} className="bx bx-trip"></i>
         </Link>
         <button
           className="navbar-toggler"

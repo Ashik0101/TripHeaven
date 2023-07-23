@@ -153,7 +153,7 @@ def update_user(user_id):
 
     # Convert the MongoDB ObjectId to a string
     existing_user['_id'] = str(existing_user['_id'])
-    return jsonify({'msg': 'User details updated successfully', 'user_data': existing_user})
+    return jsonify({'msg': 'User details updated successfully', 'user_data': existing_user}),200
 
 
 

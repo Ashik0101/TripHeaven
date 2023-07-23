@@ -5,6 +5,7 @@ import url from "./url";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Header from "./Header";
 
 function UserRegistrationComp() {
   const navigate = useNavigate();

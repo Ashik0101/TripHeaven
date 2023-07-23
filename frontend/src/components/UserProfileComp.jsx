@@ -3,6 +3,9 @@ import styles from "../styles/UserProfileComp.module.css";
 import axios from "axios";
 import url from "./url";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import {
   Drawer,
   DrawerBody,
@@ -23,24 +26,40 @@ import {
   Textarea,
   InputRightAddon,
 } from "@chakra-ui/react";
+import Header from "./Header";
 
 function UserProfileComp() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const firstField = React.useRef();
 
-  const [userData, setUserData] = useState([]);
-  const [updatedData, setUpdatedData] = useState({
+  const [userData, setUserData] = useState({
     name: "",
     date_of_birth: "",
     gender: "",
     bio: "",
   });
+
+  const [id, setId] = useState("");
+
   const token = localStorage.getItem("user_login_token");
   useEffect(() => {
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     axios
       .get(`${url}/user/profile`)
-      .then((response) => setUserData(response.data))
+      .then((response) => {
+        let data = response.data;
+
+        const initialData = {
+          name: data.name,
+          date_of_birth: formatDateForInput(data.date_of_birth),
+          gender: data.gender,
+          bio: data.bio,
+          email: data.email,
+        };
+        setUserData(initialData);
+        setId(data._id);
+        console.log(userData);
+      })
       .catch((err) =>
         console.log("Some error while fetching user profle data!")
       );
@@ -55,19 +74,51 @@ function UserProfileComp() {
     return `${year}-${month}-${day}`;
   };
 
-  const handleUpdateProfileButtonClick = (e) => {
+  // handle change event
+  const handleChangeEventOnInput = (e) => {
     const { id, value } = e.target;
-    setUpdatedData((prevUpdatedData) => ({
-      ...prevUpdatedData,
+    setUserData((prevData) => ({
+      ...prevData,
       [id]: value,
     }));
   };
-  useEffect(() => {
-    console.log(updatedData);
-  }, [updatedData]);
 
+  const handleUpdateProfileButtonClick = (e) => {
+    console.log(userData);
+    axios
+      .put(`${url}/user/update/${id}`, userData)
+      .then((response) => {
+        if (response.status === 200) {
+          notifyAfterSuccessfullUpdate();
+          onClose();
+        } else {
+          notifyAfterFail();
+        }
+        console.log(response.data);
+      })
+      .catch((err) => {
+        notifyAfterFail();
+        console.log("Some Error while Updating : ", err);
+      });
+  };
+
+  // Toast
+  const notifyAfterSuccessfullUpdate = () => {
+    toast.success("Data Updated Successfully!", {
+      position: "top-center",
+      theme: "colored",
+    });
+  };
+
+  function notifyAfterFail() {
+    toast.error("Something went wrong!", {
+      position: "top-center",
+      theme: "colored",
+    });
+  }
   return (
     <>
+      <Header />
       <div
         className={`card ${styles.card_container}`}
         style={{ width: "30rem" }}
@@ -128,7 +179,8 @@ function UserProfileComp() {
                   id="name"
                   placeholder="name"
                   value={userData.name}
-                  onChange={handleUpdateProfileButtonClick}
+                  onChange={handleChangeEventOnInput}
+                  required
                 />
               </Box>
 
@@ -141,6 +193,7 @@ function UserProfileComp() {
                     placeholder="email"
                     value={userData.email}
                     readOnly
+                    required
                   />
                   {/* <InputRightAddon>.com</InputRightAddon> */}
                 </InputGroup>
@@ -151,7 +204,8 @@ function UserProfileComp() {
                 <Select
                   id="gender"
                   defaultValue={userData.gender}
-                  onChange={handleUpdateProfileButtonClick}
+                  onChange={handleChangeEventOnInput}
+                  required
                 >
                   <option value="male">Male</option>
                   <option value="female">Female</option>
@@ -163,8 +217,9 @@ function UserProfileComp() {
                 <Input
                   type="date"
                   id="date_of_birth"
-                  defaultValue={formatDateForInput(userData.date_of_birth)}
-                  onChange={handleUpdateProfileButtonClick}
+                  defaultValue={userData.date_of_birth}
+                  onChange={handleChangeEventOnInput}
+                  required
                 />
               </Box>
               <Box>
@@ -172,7 +227,7 @@ function UserProfileComp() {
                 <Textarea
                   id="bio"
                   value={userData.bio}
-                  onChange={handleUpdateProfileButtonClick}
+                  onChange={handleChangeEventOnInput}
                 />
               </Box>
             </Stack>
@@ -188,6 +243,7 @@ function UserProfileComp() {
           </DrawerFooter>
         </DrawerContent>
       </Drawer>
+      <ToastContainer />
     </>
   );
 }
