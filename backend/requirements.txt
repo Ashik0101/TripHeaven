@@ -6,6 +6,7 @@ distlib==0.3.6
 dnspython==2.3.0
 filelock==3.12.2
 Flask==2.2.4
+Flask==2.2.4
 Flask-Cors==4.0.0
 greenlet==2.0.2
 iniconfig==2.0.0
