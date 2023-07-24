@@ -1,2 +1,2 @@
-const url = "http://localhost:5000";
+const url = "https://plum-dull-tick.cyclic.app";
 export default url;
