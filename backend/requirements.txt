@@ -7,7 +7,6 @@ dnspython==2.3.0
 filelock==3.12.2
 Flask==2.2.4
 Flask-Cors==4.0.0
-Flask-SQLAlchemy==3.0.5
 greenlet==2.0.2
 iniconfig==2.0.0
 itsdangerous==2.1.2
@@ -22,7 +21,6 @@ PyJWT==2.8.0
 pymongo==4.4.1
 pytest==7.4.0
 python-dotenv==0.21.1
-SQLAlchemy==2.0.19
 typing_extensions==4.7.1
 virtualenv==20.23.1
 Werkzeug==2.3.6
